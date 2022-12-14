@@ -19,9 +19,9 @@ class User(
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JdbcTypeCode(SqlTypes.INTEGER)
     @Column(name = "idx", nullable = false)
-    var idx: Long? = null
+    var idx: Int? = null
 
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, columnDefinition = "")
     @Description("id")
     var id: String = id
 

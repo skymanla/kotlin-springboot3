@@ -66,6 +66,8 @@ dependencies {
     implementation("org.glassfish.jaxb:jaxb-runtime:4.0.0")
     // validation
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    // springdoc
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 }
 
 tasks.withType<KotlinCompile> {

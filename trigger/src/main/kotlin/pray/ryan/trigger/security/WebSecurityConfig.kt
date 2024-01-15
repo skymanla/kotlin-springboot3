@@ -23,7 +23,7 @@ class WebSecurityConfig(
             .and()
             .csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/sign-in", "/sign-up", "/refresh", "/").permitAll()
+            .requestMatchers("/sign-in", "/sign-up", "/refresh", "/", "/swagger-ui/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

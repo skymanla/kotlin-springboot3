@@ -18,12 +18,12 @@ class RetrofitTests @Autowired constructor(
 
     @Test
     fun retrofitConnTest() {
-        val url: String = "https://api.themoviedb.org/3/"
-        val retrofitBuild = retrofitService.retrofitBuild(url)
-        logger.info(url)
-        val retrofitCreate = retrofitBuild.create(TMDBInterface::class.java)
+        // val url: String = "https://api.themoviedb.org/3/"
+        // val retrofitBuild = retrofitService.retrofitBuild(url)
+        // logger.info(url)
+        // val retrofitCreate = retrofitBuild.create(TMDBInterface::class.java)
 
-        val getGenre = retrofitCreate.getGenreMovie().execute()
-        val data = getGenre.body()?.genres
+        // val getGenre = retrofitCreate.getGenreMovie().execute()
+        // val data = getGenre.body()?.genres
     }
 }

@@ -10,7 +10,7 @@ class RefreshTokenService(
 ) {
 
     fun refreshToken(refreshToken: String): TokenResponseDto {
-        val at: String = jwtUtils.validateRT(refreshToken)
-        return TokenResponseDto(at, "HttpOnly")
+        val newAccessToken = jwtUtils.validateRT(refreshToken)
+        return TokenResponseDto(newAccessToken, refreshToken)
     }
 }

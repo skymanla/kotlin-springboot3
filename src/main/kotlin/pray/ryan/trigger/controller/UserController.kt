@@ -46,13 +46,13 @@ class UserController(
     @Hidden
     @PostMapping("/sign-in")
     fun signIn(@RequestBody @Valid signInRequestDto: SignInRequestDto, response: HttpServletResponse): ResponseEntity<RestResponseDto> {
-        val token: TokenResponseDto = signInService.singIn(signInRequestDto)
+        val tokenResponse = signInService.singIn(signInRequestDto)
 
-        val atResponse: HashMap<String, Any> = HashMap<String, Any>()
-        atResponse["at"] = token.at
+        val tokenResponseMap: MutableMap<String, Any> = mutableMapOf()
+        tokenResponseMap["at"] = tokenResponse.at
 
         // response header set cookie
-        val cookie: ResponseCookie = ResponseCookie.from("refreshToken", token.rt)
+        val refreshTokenCookie = ResponseCookie.from("refreshToken", tokenResponse.rt)
             .maxAge(jwtUtils.getRTExpireTime())
             .path("/")
             .secure(true)
@@ -62,12 +62,13 @@ class UserController(
 
         return ResponseEntity
             .ok()
-            .header(SET_COOKIE, cookie.toString())
-            .body(RestResponseDto(true, "", atResponse))
+            .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
+            .body(RestResponseDto(true, "", tokenResponseMap))
     }
 
     @PostMapping("/refresh")
-    fun refreshToken(@CookieValue("refreshToken") refreshToken: String): ResponseEntity<RestResponseDto> {
-        return ResponseEntity.ok().body(RestResponseDto(true, "", refreshTokenService.refreshToken(refreshToken)))
+    fun handleRefreshToken(@CookieValue("refreshToken") token: String): ResponseEntity<RestResponseDto> {
+        val tokenResponseDto = refreshTokenService.refreshToken(token)
+        return ResponseEntity.ok().body(RestResponseDto(success = true, message = "", data = tokenResponseDto))
     }
 }
